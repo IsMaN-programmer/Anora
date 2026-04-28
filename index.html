@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width, minimum-scale=1, maximum-scale=5, user-scalable=yes" />
+    <title>ANORBANK</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="img/anorbank-logo.webp" />
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- ГЛАВНАЯ -->
+<section id="home">
+    <div class="ab-page">
+        <div class="ab-header">
+            <img src="img/anorbank-logo.webp" class="ab-logo" />
+            <span class="ab-header-title">ANORBANK</span>
+        </div>
+        <div class="ab-card">
+            <div class="ab-card-label">Найти получателя</div>
+            <div class="ab-search-row">
+                <input type="text" class="ab-input" placeholder="Введите номер карты" id="searchCardInput" />
+                <button class="ab-btn-primary" id="searchBtn">Найти</button>
+            </div>
+        </div>
+        <div class="ab-card">
+            <div class="ab-card-label">Последние платежи</div>
+            <div class="card-info" id="cardInfo"></div>
+        </div>
+        <div class="ab-actions-row">
+            <button class="ab-btn-secondary" id="createBtn">+ Добавить карту</button>
+            <button class="ab-btn-secondary" id="historyBtn">История</button>
+        </div>
+        <div class="ab-card" id="addCardForm" style="display:none">
+            <div class="ab-card-label">Новая карта</div>
+            <input type="text" class="ab-input" id="cardName" placeholder="Имя получателя" />
+            <input type="text" class="ab-input" id="cardNumber" placeholder="Номер карты" style="margin-top:10px" />
+            <button class="ab-btn-primary" id="addCardBtn" style="margin-top:12px;width:100%">Добавить</button>
+        </div>
+    </div>
+</section>
+
+<!-- ИСТОРИЯ -->
+<section id="historySection" style="display:none">
+    <div class="ab-page">
+        <div class="ab-header">
+            <button class="ab-back-btn" id="backToHome">&#8592;</button>
+            <span class="ab-header-title">История чеков</span>
+        </div>
+        <div class="ab-card">
+            <div id="historyList"></div>
+        </div>
+        <button class="ab-btn-danger" id="clearHistory">Очистить историю</button>
+    </div>
+</section>
+
+<!-- ВВОД СУММЫ -->
+<section id="sum" style="display:none">
+    <div class="ab-page">
+        <div class="ab-header">
+            <button class="ab-back-btn" id="backFromSum">&#8592;</button>
+            <span class="ab-header-title">Перевод</span>
+        </div>
+        <div class="ab-card ab-sum-card">
+            <div class="ab-sum-to">Кому</div>
+            <div class="ab-sum-recipient" id="sumRecipientName">—</div>
+            <div class="ab-sum-card-num" id="sumRecipientCard">—</div>
+            <div class="ab-sum-divider"></div>
+            <div class="ab-sum-to">Сумма</div>
+            <div class="ab-sum-input-row">
+                <input type="number" class="ab-sum-input" id="sumInput" placeholder="0" />
+                <span class="ab-sum-currency">UZS</span>
+            </div>
+            <div class="ab-commission">Комиссия: 0%</div>
+        </div>
+        <button class="ab-btn-main" id="proceedBtn">Продолжить</button>
+    </div>
+</section>
+
+<!-- ПОДТВЕРЖДЕНИЕ -->
+<section id="payment" style="display:none">
+    <div class="ab-page">
+        <div class="ab-header">
+            <button class="ab-back-btn" id="backFromPayment">&#8592;</button>
+            <span class="ab-header-title">Подтверждение</span>
+        </div>
+        <div class="ab-card ab-confirm-card">
+            <div class="ab-check-badge">
+                <img src="img/anorbank-logo.webp" class="ab-badge-logo" />
+                ANORBANK
+            </div>
+            <div class="ab-check-type">Переводы</div>
+            <div class="ab-confirm-amount" id="confirmAmount">0 <span class="ab-confirm-currency">UZS</span></div>
+            <div class="ab-confirm-commission">Комиссия 0 UZS</div>
+            <div class="ab-confirm-recipient-block">
+                <img src="img/anorbank-logo.webp" style="width:36px;height:36px;border-radius:10px;flex-shrink:0;" />
+                <div class="ab-confirm-recipient-info">
+                    <div class="ab-confirm-recipient-name" id="confirmName">—</div>
+                    <div class="ab-confirm-recipient-card" id="confirmCard">—</div>
+                </div>
+                <div class="ab-confirm-status">✓ Выполнено</div>
+            </div>
+        </div>
+        <div class="ab-icon-actions">
+            <div class="icon ab-icon-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <div class="ab-icon-label">Добавить в шаблон</div>
+            </div>
+            <div class="icon ab-icon-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <div class="ab-icon-label">Показать чек</div>
+            </div>
+        </div>
+        <button class="ab-btn-main final-b">Готово</button>
+    </div>
+</section>
+
+<!-- ЧЕК -->
+<section id="check" style="display:none">
+    <div class="ab-page">
+        <div class="ab-card ab-check-top">
+            <div class="ab-check-badge">
+                <img src="img/anorbank-logo.webp" class="ab-badge-logo" />
+                ANORBANK
+            </div>
+            <div class="ab-check-type">Переводы</div>
+            <div class="ab-check-amount"><span id="checkAmountDisplay">0</span><span class="ab-check-cents">,00 UZS</span></div>
+            <div class="ab-check-recipient-row">
+                <span id="checkRecipientNameTop"></span>
+                <span class="ab-check-dots"> •• </span>
+                <span id="checkCardLast4"></span>
+            </div>
+            <div class="ab-check-datetime" id="checkDatetime"></div>
+        </div>
+
+        <div class="ab-card ab-details-toggle" id="toggleDetails">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+            Детали операции
+        </div>
+
+        <div class="ab-card ab-details-panel" id="detailsPanel" style="display:none">
+            <div class="ab-details-title">Детали операции</div>
+            <div class="ab-detail-row"><span class="ab-dk">Получатель</span><span class="ab-dv" id="detailRecipientName"></span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Карта зачисления</span><span class="ab-dv" id="detailRecipientCard"></span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Отправитель</span><span class="ab-dv">Master Card</span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Карта списания</span><span class="ab-dv">5217 39** **** 3502</span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Дата и время</span><span class="ab-dv" id="detailDatetime"></span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Номер транзакции</span><span class="ab-dv ab-txid" id="detailTxId"></span></div>
+            <div class="ab-divider"></div>
+            <div class="ab-detail-row"><span class="ab-dk">Сумма перевода</span><span class="ab-dv" id="detailAmount"></span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Комиссия 0.0%</span><span class="ab-dv">0<span style="font-size:11px">,00</span> UZS</span></div>
+            <div class="ab-detail-row ab-total-row"><span class="ab-dk">Итого</span><span class="ab-dv ab-total-val" id="detailTotal"></span></div>
+            <div class="ab-receipt-row">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <div>
+                    <div class="ab-receipt-title">Квитанция</div>
+                    <div class="ab-receipt-sub">от Anor Bank</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ab-three-actions">
+            <div class="ab-action-btn" id="checkRepeatBtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.42"/></svg>
+                <span>Повторить</span>
+            </div>
+            <div class="ab-action-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Сохранить</span>
+            </div>
+            <div class="ab-action-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span>Поделиться</span>
+            </div>
+        </div>
+
+        <button class="ab-btn-main" id="checkDoneBtn">Отлично</button>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,412 @@
+* { padding:0; margin:0; box-sizing:border-box; }
+
+body {
+    font-family: -apple-system, 'Segoe UI', sans-serif;
+    background: #f0f0f5;
+    min-height: 100vh;
+}
+
+/* ===== PAGE WRAPPER ===== */
+.ab-page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.ab-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0 4px;
+}
+.ab-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+}
+.ab-header-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: 0.5px;
+}
+.ab-back-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #7b2d42;
+    cursor: pointer;
+    padding: 0 8px 0 0;
+    line-height: 1;
+}
+
+/* ===== CARDS ===== */
+.ab-card {
+    background: white;
+    border-radius: 16px;
+    padding: 18px 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.ab-card-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== INPUTS ===== */
+.ab-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #111;
+    background: #fafafa;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.ab-input:focus { border-color: #7b2d42; background: white; }
+
+.ab-search-row {
+    display: flex;
+    gap: 8px;
+}
+.ab-search-row .ab-input { flex: 1; }
+
+/* ===== BUTTONS ===== */
+.ab-btn-primary {
+    background: #7b2d42;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+.ab-btn-primary:hover { background: #9a3654; }
+
+.ab-btn-secondary {
+    flex: 1;
+    background: white;
+    color: #7b2d42;
+    border: 1.5px solid #e0c0c8;
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.ab-btn-secondary:hover { background: #fdf0f3; }
+
+.ab-btn-main {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 50px;
+    background: #7b2d42;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 4px;
+}
+.ab-btn-main:hover { background: #9a3654; }
+.ab-btn-main:active { transform: scale(0.98); }
+
+.ab-btn-danger {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    background: #fff0f2;
+    color: #c0392b;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid #f5c6cb;
+}
+
+.ab-actions-row {
+    display: flex;
+    gap: 10px;
+}
+
+/* ===== CARD ITEMS (saved cards) ===== */
+.card-info { display: flex; flex-direction: column; gap: 10px; }
+
+.card-item, .user1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1.5px solid #f0f0f0;
+    border-radius: 12px;
+    background: #fafafa;
+    transition: border-color 0.2s;
+}
+.card-item.selected, .user1.selected {
+    border-color: #7b2d42;
+    background: #fdf0f3;
+}
+.card-item label, .user1 label {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+    cursor: pointer;
+}
+.card-item input[type="text"], .user1 input[type="text"] {
+    display: none;
+}
+.card-item .card-num, .user1 .card-num {
+    font-size: 12px;
+    color: #999;
+    flex: 1;
+}
+.card-item .green-b, .user1 .green-b {
+    background: #7b2d42;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.card-item .green-b:hover, .user1 .green-b:hover { background: #9a3654; }
+.card-item .red-b, .user1 .red-b {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+}
+.card-item .red-b:hover, .user1 .red-b:hover { color: #e74c3c; }
+
+/* ===== SUM SCREEN ===== */
+.ab-sum-card { text-align: center; padding: 28px 20px; }
+.ab-sum-to { font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.ab-sum-recipient { font-size: 20px; font-weight: 700; color: #111; }
+.ab-sum-card-num { font-size: 13px; color: #aaa; margin-top: 2px; }
+.ab-sum-divider { height: 1px; background: #f0f0f0; margin: 20px 0; }
+.ab-sum-input-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0; }
+.ab-sum-input {
+    font-size: 36px;
+    font-weight: 800;
+    color: #111;
+    border: none;
+    outline: none;
+    text-align: center;
+    width: 200px;
+    background: transparent;
+    border-bottom: 2px solid #7b2d42;
+    padding-bottom: 4px;
+}
+.ab-sum-input::placeholder { color: #ccc; }
+.ab-sum-currency { font-size: 20px; font-weight: 600; color: #666; }
+.ab-commission { font-size: 12px; color: #aaa; margin-top: 8px; }
+
+/* ===== CONFIRM SCREEN ===== */
+.ab-confirm-card { text-align: center; padding: 24px 20px; }
+.ab-confirm-amount {
+    font-size: 40px;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -1px;
+    margin: 6px 0;
+}
+.ab-confirm-currency { font-size: 24px; font-weight: 600; color: #444; }
+.ab-confirm-commission {
+    display: inline-block;
+    font-size: 12px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+.ab-confirm-recipient-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    padding: 14px;
+    text-align: left;
+}
+.ab-confirm-recipient-info { flex: 1; }
+.ab-confirm-recipient-name { font-size: 15px; font-weight: 700; color: #111; }
+.ab-confirm-recipient-card { font-size: 12px; color: #aaa; margin-top: 2px; }
+.ab-confirm-status {
+    font-size: 12px;
+    color: #2e7d32;
+    background: #e8f5e9;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Icon actions on confirm screen */
+.ab-icon-actions {
+    display: flex;
+    gap: 12px;
+}
+.ab-icon-btn {
+    flex: 1;
+    background: white;
+    border-radius: 14px;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.ab-icon-label {
+    font-size: 11px;
+    color: #555;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* ===== BADGE ===== */
+.ab-check-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #7b2d42;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+.ab-badge-logo {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+}
+.ab-check-type { font-size: 13px; color: #aaa; margin-bottom: 4px; }
+
+/* ===== CHECK TOP CARD ===== */
+.ab-check-top { text-align: center; padding: 22px 16px 18px; }
+.ab-check-amount {
+    font-size: 38px;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -1px;
+}
+.ab-check-cents { font-size: 22px; font-weight: 600; color: #333; }
+.ab-check-recipient-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    margin-top: 10px;
+}
+.ab-check-dots { color: #bbb; }
+.ab-check-datetime { font-size: 12px; color: #bbb; margin-top: 6px; }
+
+/* ===== DETAILS TOGGLE ===== */
+.ab-details-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #222;
+    cursor: pointer;
+    padding: 15px 16px;
+}
+.ab-details-toggle:hover { background: #fdf0f3; }
+
+/* ===== DETAILS PANEL ===== */
+.ab-details-panel { padding: 18px 16px; }
+.ab-details-title { font-size: 20px; font-weight: 700; color: #111; margin-bottom: 16px; }
+.ab-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-bottom: 1px solid #f5f5f5;
+    gap: 12px;
+}
+.ab-detail-row:last-of-type { border-bottom: none; }
+.ab-dk { font-size: 14px; color: #999; flex-shrink: 0; }
+.ab-dv { font-size: 14px; color: #111; font-weight: 500; text-align: right; word-break: break-all; max-width: 58%; }
+.ab-txid { font-size: 11px; font-family: monospace; color: #666; }
+.ab-divider { height: 1px; background: #eee; margin: 8px 0; }
+.ab-total-row { padding-top: 12px; }
+.ab-total-val { font-size: 22px; font-weight: 800; color: #111; }
+.ab-receipt-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #f0f0f0;
+    cursor: pointer;
+}
+.ab-receipt-title { font-size: 14px; font-weight: 600; color: #222; }
+.ab-receipt-sub { font-size: 12px; color: #bbb; }
+
+/* ===== 3 ACTION BUTTONS ===== */
+.ab-three-actions {
+    display: flex;
+    gap: 10px;
+}
+.ab-action-btn {
+    flex: 1;
+    background: white;
+    border-radius: 16px;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #444;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    transition: background 0.15s;
+}
+.ab-action-btn:hover { background: #fdf0f3; }
+
+/* ===== HISTORY ===== */
+.history-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+.history-item:last-child { border-bottom: none; }
+.history-item .hi-name { font-size: 14px; font-weight: 600; color: #111; }
+.history-item .hi-card { font-size: 12px; color: #aaa; margin-top: 2px; }
+.history-item .hi-amount { font-size: 16px; font-weight: 700; color: #7b2d42; }
+.history-item .hi-time { font-size: 11px; color: #bbb; }
+
+@media (max-width: 480px) {
+    .ab-page { padding: 12px; }
+    .ab-check-amount { font-size: 30px; }
+    .ab-confirm-amount { font-size: 32px; }
+}
