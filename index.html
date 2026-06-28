@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width, minimum-scale=1, maximum-scale=5, user-scalable=yes" />
+    <title>ANORBANK</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="img/anorbank-logo.webp" />
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- PIN SCREEN -->
+<section id="pinScreen" class="screen active">
+    <div class="pin-page">
+        <a href="#" class="pin-forgot">Забыли ПИН ?</a>
+        <div class="pin-icon-wrap">
+            <div class="pin-icon-circle">
+                <img src="img/photo_7_2026-06-28_17-48-49.jpg" alt="AnorBank" class="pin-logo-img" />
+            </div>
+        </div>
+        <h2 class="pin-title">Введите пин-код</h2>
+        <div class="pin-dots">
+            <div class="pin-dot" id="dot0"></div>
+            <div class="pin-dot" id="dot1"></div>
+            <div class="pin-dot" id="dot2"></div>
+            <div class="pin-dot" id="dot3"></div>
+        </div>
+        <div class="pin-error" id="pinError">Неверный пин-код</div>
+        <div class="pin-pad">
+            <button class="pin-key" data-key="1">1</button>
+            <button class="pin-key" data-key="2">2</button>
+            <button class="pin-key" data-key="3">3</button>
+            <button class="pin-key" data-key="4">4</button>
+            <button class="pin-key" data-key="5">5</button>
+            <button class="pin-key" data-key="6">6</button>
+            <button class="pin-key" data-key="7">7</button>
+            <button class="pin-key" data-key="8">8</button>
+            <button class="pin-key" data-key="9">9</button>
+            <button class="pin-key pin-key-fn" data-key="back">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M9 18l-6-6 6-6"/><path d="M3 12h18"/></svg>
+            </button>
+            <button class="pin-key" data-key="0">0</button>
+            <button class="pin-key pin-key-fn" data-key="del">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- MAIN / HOME SCREEN -->
+<section id="homeScreen" class="screen">
+    <div class="app-page">
+        <div class="home-topbar">
+            <button class="topbar-icon" id="profileBtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </button>
+            <div class="topbar-search">
+                <input type="text" placeholder="Поиск" readonly />
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <button class="topbar-icon notif-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span class="notif-dot"></span>
+            </button>
+        </div>
+
+        <div class="balance-section">
+            <div class="balance-label">Общий баланс</div>
+            <div class="balance-row">
+                <span class="balance-amount" id="totalBalance">823</span><span class="balance-decimal">.45 UZS</span>
+                <button class="eye-btn" id="eyeToggle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="cards-carousel" id="cardsCarousel">
+            <div class="card-slide card-slide-add">
+                <div class="add-card-inner">
+                    <div class="add-card-plus">+</div>
+                    <div class="add-card-text">добавить</div>
+                </div>
+            </div>
+            <div class="card-slide card-slide-main card-img-slide" data-card="master">
+                <img src="img/photo_4_2026-06-28_17-48-49.jpg" alt="Master Card" class="card-bg-img" />
+                <div class="card-overlay">
+                    <div class="cc-bottom-left">
+                        <div class="cc-balance"><span id="cardBalance">823</span><span class="cc-decimal">.45 UZS</span></div>
+                        <div class="cc-number">•• 3502</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-slide card-slide-pink card-img-slide" data-card="ismanov">
+                <div class="card-pink-bg"></div>
+                <div class="card-overlay">
+                    <div class="cc-bottom-left">
+                        <div class="cc-balance">0.00<span class="cc-decimal"> UZS</span></div>
+                        <div class="cc-number">•• 2048</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="all-cards-link">
+            Все карты
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="quick-actions">
+            <div class="quick-action" data-action="transfer">
+                <div class="qa-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/><path d="M7 15h4"/></svg>
+                </div>
+                <div class="qa-label">Перевод на карту</div>
+            </div>
+            <div class="quick-action" data-action="mobile">
+                <div class="qa-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="18" r="1"/></svg>
+                </div>
+                <div class="qa-label">Оплата сотового</div>
+            </div>
+            <div class="quick-action" data-action="check">
+                <div class="qa-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><rect x="2" y="3" width="20" height="18" rx="3"/><circle cx="8" cy="9" r="2"/><circle cx="16" cy="9" r="2"/><path d="M8 15c1 1 7 1 8 0"/></svg>
+                </div>
+                <div class="qa-label">AnorCheck</div>
+            </div>
+            <div class="quick-action" data-action="exchange">
+                <div class="qa-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                </div>
+                <div class="qa-label">Обмен валюты</div>
+            </div>
+        </div>
+
+        <div class="promo-banner">
+            <div class="promo-text">
+                <span class="promo-big">УЗБЕКИСТАН</span><br>
+                <span class="promo-big">НА <span class="promo-highlight">ЧМ-2026!</span></span><br>
+                <span class="promo-sub">Все матчи и таблицы</span>
+            </div>
+        </div>
+
+        <div class="quick-transfer-section">
+            <div class="qt-title">Перевести на карту</div>
+            <div class="qt-input-row">
+                <div class="qt-input">
+                    <input type="text" placeholder="По телефону или карте" id="quickTransferInput" />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 10h20"/></svg>
+                </div>
+                <button class="qt-send-btn" id="quickSendBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TRANSFERS SCREEN -->
+<section id="transfersScreen" class="screen">
+    <div class="app-page">
+        <h1 class="page-title">Переводы</h1>
+
+        <div class="tab-bar" id="transfersTabBar">
+            <button class="tab-btn active" data-tab="transfers">Переводы</button>
+            <button class="tab-btn" data-tab="international">Международные</button>
+        </div>
+
+        <div class="transfers-grid">
+            <div class="transfer-option" data-action="between-cards">
+                <div class="to-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="3"/><path d="M1 10h22"/><path d="M6 15h4"/></svg>
+                </div>
+                <div class="to-label">Между своими</div>
+            </div>
+            <div class="transfer-option">
+                <div class="to-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M12 5V2M12 22v-3"/><path d="M8 9l4-4 4 4"/></svg>
+                </div>
+                <div class="to-label">Перевод Anor Nasiya</div>
+            </div>
+            <div class="transfer-option">
+                <div class="to-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8l4 4-4 4"/></svg>
+                </div>
+                <div class="to-label">Обмен валюты</div>
+            </div>
+            <div class="transfer-option">
+                <div class="to-icon new-badge-wrap">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                    <span class="new-badge">Новинка</span>
+                </div>
+                <div class="to-label">AnorEx</div>
+            </div>
+        </div>
+
+        <div class="card-transfer-section">
+            <div class="ct-title">Переводы по карте</div>
+            <div class="ct-input-row">
+                <input type="text" class="ct-input" placeholder="0000 0000 0000 0000" id="cardNumberInput" />
+                <button class="ct-scan-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 10h20"/></svg>
+                </button>
+            </div>
+            <div class="ct-search-row">
+                <input type="text" class="ct-input" placeholder="Найти получателя" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+        </div>
+
+        <div class="freq-tabs">
+            <button class="freq-tab active" data-freq="frequent">Частые</button>
+            <button class="freq-tab" data-freq="recent">Последние</button>
+            <button class="freq-tab" data-freq="saved">Сохранённые</button>
+        </div>
+
+        <div class="recipients-list" id="recipientsList">
+            <div class="recipient-item">
+                <div class="ri-avatar ri-avatar-dark">
+                    <img src="img/anorbank-logo.webp" alt="" class="ri-avatar-img" />
+                </div>
+                <div class="ri-info">
+                    <div class="ri-name">ISMANOV D.</div>
+                    <div class="ri-detail">AO ANOR BANK •• 9159</div>
+                </div>
+            </div>
+            <div class="recipient-item">
+                <div class="ri-avatar ri-avatar-green">
+                    <span>X</span>
+                </div>
+                <div class="ri-info">
+                    <div class="ri-name">SARDOR I.</div>
+                    <div class="ri-detail">Xalq Bank •• 3665</div>
+                </div>
+            </div>
+            <div class="recipient-item">
+                <div class="ri-avatar ri-avatar-pink">
+                    <img src="img/anorbank-logo.webp" alt="" class="ri-avatar-img" />
+                </div>
+                <div class="ri-info">
+                    <div class="ri-name">ISMANOV D.</div>
+                    <div class="ri-detail">AO ANOR BANK •• 6987</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PAYMENT SCREEN -->
+<section id="paymentScreen" class="screen">
+    <div class="app-page">
+        <div class="back-header">
+            <button class="back-btn" id="paymentBackBtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="back-title">Оплата</span>
+        </div>
+        <div class="card-ab">
+            <div class="ab-card-label">Найти получателя</div>
+            <div class="ab-search-row">
+                <input type="text" class="ab-input" placeholder="Введите номер карты" id="searchCardInput" />
+                <button class="ab-btn-primary" id="searchBtn">Найти</button>
+            </div>
+        </div>
+        <div class="card-ab">
+            <div class="ab-card-label">Последние платежи</div>
+            <div class="card-info" id="cardInfo"></div>
+        </div>
+        <div class="ab-actions-row">
+            <button class="ab-btn-secondary" id="createBtn">+ Добавить карту</button>
+        </div>
+        <div class="card-ab" id="addCardForm" style="display:none">
+            <div class="ab-card-label">Новая карта</div>
+            <input type="text" class="ab-input" id="cardName" placeholder="Имя получателя" />
+            <input type="text" class="ab-input" id="cardNumber" placeholder="Номер карты" style="margin-top:10px" />
+            <button class="ab-btn-primary" id="addCardBtn" style="margin-top:12px;width:100%">Добавить</button>
+        </div>
+    </div>
+</section>
+
+<!-- BETWEEN CARDS SCREEN -->
+<section id="betweenCardsScreen" class="screen">
+    <div class="app-page">
+        <div class="back-header">
+            <button class="back-btn" id="betweenBackBtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="back-title">Между своими картами</span>
+        </div>
+
+        <div class="bc-card bc-from-card">
+            <div class="bc-card-row">
+                <div class="bc-card-mini-img bc-mini-pink">
+                    <img src="img/anorbank-logo.webp" alt="" class="bc-mini-logo" />
+                </div>
+                <div class="bc-card-info">
+                    <div class="bc-card-amount">800.00 UZS</div>
+                    <div class="bc-card-name">ISMANOV SARDOR ••2048</div>
+                </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+        </div>
+
+        <div class="bc-swap-btn">
+            <div class="bc-swap-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.42"/></svg>
+            </div>
+        </div>
+
+        <div class="bc-card bc-to-card">
+            <div class="bc-card-row">
+                <div class="bc-card-mini-img bc-mini-dark">
+                    <img src="img/anorbank-logo.webp" alt="" class="bc-mini-logo" />
+                </div>
+                <div class="bc-card-info">
+                    <div class="bc-card-amount">23.45 UZS</div>
+                    <div class="bc-card-name">Master Card ••3502</div>
+                </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+        </div>
+
+        <div class="bc-amount-section">
+            <div class="bc-amount-input-row">
+                <input type="number" class="bc-amount-input" id="bcAmountInput" placeholder="0.00 UZS" />
+                <button class="bc-link-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
+            </div>
+            <div class="bc-commission">Перевод без комиссии</div>
+            <div class="bc-quick-amounts">
+                <button class="bc-quick-btn" data-amount="20000">20 000</button>
+                <button class="bc-quick-btn" data-amount="50000">50 000</button>
+                <button class="bc-quick-btn" data-amount="100000">100 000</button>
+                <button class="bc-quick-btn" data-amount="200000">200 000</button>
+            </div>
+        </div>
+
+        <button class="bc-transfer-btn disabled" id="bcTransferBtn">Перевести</button>
+    </div>
+</section>
+
+<!-- SUM SCREEN -->
+<section id="sumScreen" class="screen">
+    <div class="app-page">
+        <div class="back-header">
+            <button class="back-btn" id="sumBackBtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="back-title">Перевод</span>
+        </div>
+        <div class="card-ab ab-sum-card">
+            <div class="ab-sum-to">Кому</div>
+            <div class="ab-sum-recipient" id="sumRecipientName">—</div>
+            <div class="ab-sum-card-num" id="sumRecipientCard">—</div>
+            <div class="ab-sum-divider"></div>
+            <div class="ab-sum-to">Сумма</div>
+            <div class="ab-sum-input-row">
+                <input type="number" class="ab-sum-input" id="sumInput" placeholder="0" />
+                <span class="ab-sum-currency">UZS</span>
+            </div>
+            <div class="ab-commission">Комиссия: 0%</div>
+        </div>
+        <button class="ab-btn-main" id="proceedBtn">Продолжить</button>
+    </div>
+</section>
+
+<!-- CONFIRM / CHECK SCREEN -->
+<section id="checkScreen" class="screen">
+    <div class="app-page">
+        <div class="back-header">
+            <button class="back-btn" id="checkBackBtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="back-title">Чек</span>
+        </div>
+
+        <div class="card-ab ab-check-top">
+            <div class="ab-check-badge">
+                <img src="img/unnamed.webp" class="ab-badge-logo" />
+                ANORBANK
+            </div>
+            <div class="ab-check-type">Переводы</div>
+            <div class="ab-check-amount"><span id="checkAmountDisplay">0</span><span class="ab-check-cents">.00 UZS</span></div>
+            <div class="ab-check-recipient-row">
+                <span id="checkRecipientNameTop"></span>
+                <span class="ab-check-dots"> •• </span>
+                <span id="checkCardLast4"></span>
+            </div>
+            <div class="ab-check-datetime" id="checkDatetime"></div>
+            <div class="ab-check-note-row">
+                <input type="text" class="ab-check-note" placeholder="Например, за обед другу" id="checkNote" />
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+        </div>
+
+        <div class="card-ab ab-details-toggle" id="toggleDetails">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+            Детали операции
+        </div>
+
+        <div class="card-ab ab-details-panel" id="detailsPanel" style="display:none">
+            <div class="ab-details-title">Детали операции</div>
+            <div class="ab-detail-row"><span class="ab-dk">Получатель</span><span class="ab-dv" id="detailRecipientName"></span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Карта зачисления</span><span class="ab-dv" id="detailRecipientCard"></span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Отправитель</span><span class="ab-dv" id="detailSenderName">ISMANOV SARDOR</span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Карта списания</span><span class="ab-dv">5217 3959 0505 3502</span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Дата и время</span><span class="ab-dv" id="detailDatetime"></span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Номер транзакции</span><span class="ab-dv ab-txid" id="detailTxId"></span></div>
+            <div class="ab-divider"></div>
+            <div class="ab-detail-row"><span class="ab-dk">Сумма перевода</span><span class="ab-dv" id="detailAmount"></span></div>
+            <div class="ab-detail-row"><span class="ab-dk">Комиссия 0.0%</span><span class="ab-dv">0,00 UZS</span></div>
+            <div class="ab-detail-row ab-total-row"><span class="ab-dk">Итого</span><span class="ab-dv ab-total-val" id="detailTotal"></span></div>
+            <div class="ab-receipt-row">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <div>
+                    <div class="ab-receipt-title">Квитанция</div>
+                    <div class="ab-receipt-sub">от Anor Bank</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ab-three-actions">
+            <div class="ab-action-btn" id="checkRepeatBtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.42"/></svg>
+                <span>Повторить</span>
+            </div>
+            <div class="ab-action-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Сохранить</span>
+            </div>
+            <div class="ab-action-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span>Поделиться</span>
+            </div>
+        </div>
+
+        <button class="ab-btn-main check-done-btn" id="checkDoneBtn">Отлично</button>
+    </div>
+</section>
+
+<!-- PROFILE SCREEN -->
+<section id="profileScreen" class="screen">
+    <div class="app-page profile-page">
+        <div class="profile-header">
+            <button class="back-btn profile-back" id="profileBackBtn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="profile-header-title">Профиль</span>
+            <button class="profile-exit-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </button>
+        </div>
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="profile-name">ISMANOV SARDOR DILSHOD...</div>
+            <div class="profile-status">
+                <span>Идентифицированный клиент банка</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="profile-balance-row">
+                <span class="profile-balance-label">Баланс</span>
+                <span class="profile-balance-val" id="profileBalance">823.45 UZS</span>
+            </div>
+        </div>
+
+        <div class="topup-card" id="topupCard" style="display:none">
+            <div class="topup-title">Пополнение карты</div>
+            <div class="topup-card-select">
+                <div class="bc-card-row">
+                    <div class="bc-card-mini-img bc-mini-pink">
+                        <img src="img/anorbank-logo.webp" alt="" class="bc-mini-logo" />
+                    </div>
+                    <div class="bc-card-info">
+                        <div class="bc-card-amount">Master Card</div>
+                        <div class="bc-card-name">•• 3502</div>
+                    </div>
+                </div>
+            </div>
+            <div class="topup-input-row">
+                <input type="number" class="topup-input" id="topupAmount" placeholder="0.00 UZS" />
+            </div>
+            <div class="topup-quick">
+                <button class="bc-quick-btn" data-amount="50000">50 000</button>
+                <button class="bc-quick-btn" data-amount="100000">100 000</button>
+                <button class="bc-quick-btn" data-amount="200000">200 000</button>
+                <button class="bc-quick-btn" data-amount="500000">500 000</button>
+            </div>
+            <button class="ab-btn-main" id="topupConfirmBtn">Пополнить</button>
+        </div>
+
+        <div class="profile-menu">
+            <div class="profile-menu-item" data-action="topup">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Пополнить карту</span>
+            </div>
+            <div class="profile-menu-item">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Личные данные</span>
+            </div>
+            <div class="profile-menu-item">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+                <span>Тема приложения</span>
+            </div>
+            <div class="profile-menu-item">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
+                <span>Действие</span>
+            </div>
+            <div class="profile-menu-item">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span>Язык</span>
+                <span class="pmi-value">Русский</span>
+            </div>
+            <div class="profile-menu-item">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Безопасность</span>
+            </div>
+            <div class="profile-menu-item">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>Поддержка</span>
+            </div>
+            <div class="profile-menu-item">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>Универсальный договор</span>
+            </div>
+            <div class="profile-menu-item">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d42" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>Политика безопасности</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" style="margin-left:auto"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+        </div>
+        <div class="profile-version">v 2.40.1</div>
+    </div>
+</section>
+
+<!-- MONITORING SCREEN -->
+<section id="monitoringScreen" class="screen">
+    <div class="app-page">
+        <h1 class="page-title">Мониторинг</h1>
+        <div class="monitoring-filters">
+            <button class="freq-tab active">Все</button>
+            <button class="freq-tab">Переводы</button>
+            <button class="freq-tab">Оплата</button>
+        </div>
+        <div id="monitoringList" class="monitoring-list"></div>
+    </div>
+</section>
+
+<!-- ALL SERVICES SCREEN -->
+<section id="servicesScreen" class="screen">
+    <div class="app-page">
+        <h1 class="page-title">Все услуги</h1>
+        <div class="services-grid">
+            <div class="service-item"><div class="si-icon">💳</div><div class="si-label">Перевод на карту</div></div>
+            <div class="service-item"><div class="si-icon">📱</div><div class="si-label">Оплата сотового</div></div>
+            <div class="service-item"><div class="si-icon">🔍</div><div class="si-label">AnorCheck</div></div>
+            <div class="service-item"><div class="si-icon">💱</div><div class="si-label">Обмен валюты</div></div>
+            <div class="service-item"><div class="si-icon">🏦</div><div class="si-label">Между своими</div></div>
+            <div class="service-item"><div class="si-icon">🌐</div><div class="si-label">AnorEx</div></div>
+            <div class="service-item"><div class="si-icon">📄</div><div class="si-label">Анор Насия</div></div>
+            <div class="service-item"><div class="si-icon">⚡</div><div class="si-label">Коммунальные</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav" id="bottomNav" style="display:none">
+    <button class="nav-item active" data-nav="home">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Главная</span>
+    </button>
+    <button class="nav-item" data-nav="transfers">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        <span>Переводы</span>
+    </button>
+    <button class="nav-item" data-nav="payment">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="3"/><path d="M1 10h22"/></svg>
+        <span>Оплата</span>
+    </button>
+    <button class="nav-item" data-nav="monitoring">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Монитори...</span>
+    </button>
+    <button class="nav-item" data-nav="services">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Все услуги</span>
+    </button>
+</nav>
+
+</body>
+</html>
